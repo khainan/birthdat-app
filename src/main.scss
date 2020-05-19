@@ -1,0 +1,248 @@
+$particles: 50;
+$width: 500;
+$height: 500;
+
+// Create the explosion...
+$box-shadow: ();
+$box-shadow2: ();
+@for $i from 0 through $particles {
+  $box-shadow: $box-shadow,
+               random($width)-$width / 2 + px
+               random($height)-$height / 1.2 + px
+               hsl(random(360), 100, 50);
+  $box-shadow2: $box-shadow2, 0 0 #fff
+}
+@mixin keyframes ($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+
+    @-ms-keyframes #{$animationName} {
+        @content;
+    }
+
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+
+@mixin animation-delay ($settings) {
+    -moz-animation-delay: $settings;
+    -webkit-animation-delay: $settings;
+    -o-animation-delay: $settings;
+    -ms-animation-delay: $settings;
+    animation-delay: $settings;
+}
+
+@mixin animation-duration ($settings) {
+    -moz-animation-duration: $settings;
+    -webkit-animation-duration: $settings;
+    -o-animation-duration: $settings;
+    -ms-animation-duration: $settings;
+    animation-duration: $settings;
+}
+
+@mixin animation ($settings) {
+    -moz-animation: $settings;
+    -webkit-animation: $settings;
+    -o-animation: $settings;
+    -ms-animation: $settings;
+    animation: $settings;
+}
+
+@mixin transform ($settings) {
+    transform: $settings;
+    -moz-transform: $settings;
+    -webkit-transform: $settings;
+    -o-transform: $settings;
+    -ms-transform: $settings;
+}
+
+body {
+  margin:0;
+  padding:0;
+  background: #eee4e1;
+  overflow: hidden;
+}
+
+.pyro > .before, .pyro > .after {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  box-shadow: $box-shadow2;
+  @include animation((1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards));
+}
+    
+.pyro > .after {
+  @include animation-delay((1.25s, 1.25s, 1.25s));
+  @include animation-duration((1.25s, 1.25s, 6.25s));
+}
+        
+@include keyframes(bang) {
+  to {
+    box-shadow:$box-shadow;
+  }
+}
+    
+@include keyframes(gravity)  {
+  to {
+    @include transform(translateY(200px));
+    opacity: 0;
+  }
+}
+    
+@include keyframes(position) {
+  0%, 19.9% {
+    margin-top: 10%;
+    margin-left: 40%;
+  }
+  20%, 39.9% {
+    margin-top: 40%;
+    margin-left: 30%;
+  }
+  40%, 59.9% {  
+    margin-top: 20%;
+    margin-left: 70%
+  }
+  60%, 79.9% {  
+    margin-top: 30%;
+    margin-left: 20%;
+  }
+  80%, 99.9% {  
+    margin-top: 30%;
+    margin-left: 80%;
+  }
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Sacramento&display=swap');
+/*----Variables ----*/
+$white: #FEFEFE;
+$envelope-color-1: #F6CFCA;
+$envelope-color-2: #f4dad7;
+$envelope-color-3: #FBE8E5;
+$envelope-width: 150px;
+$envelope-height: 80px;
+$paper-width: 100px;
+$paper-height: 70px;
+$triangle-height: calc(#{$envelope-height} / 2);
+$triangle-width: calc(#{$envelope-width} / 2);
+$paper-border-radius: 3px;
+$bezier: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/*----Abstract Classes ----*/
+%absolute-center {
+	position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+%box-1 {
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06);
+}
+%box-2 {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+/*----Components ----*/
+.design {
+  @extend %absolute-center;
+}
+
+.envelope {
+  @extend %box-1;
+  background: $envelope-color-1;
+  width: $envelope-width;
+  height: $envelope-height;
+  
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.open {
+    .cover .top {
+        transform: scaleY(-1);
+        transform-origin: top;
+        z-index: 0;
+      }
+      
+      .paper {
+        transform: translate(-50%, -100px);
+        transition : $bezier;
+        z-index: 5;
+      }
+  }
+  
+  .paper {
+    @extend %absolute-center, %box-2;
+    width: $paper-width;
+    height: $paper-height; 
+    background: #FFFFFF;
+    border-radius: $paper-border-radius;
+    
+    .message {
+      @extend %absolute-center;
+      font-family: 'Sacramento', cursive;
+      text-align: center;
+    }
+  }
+  
+  .cover {
+    position: relative;
+    
+    .top, .left, .right, .bottom {       
+      position: absolute;
+      width: $envelope-width;
+      z-index: 1;
+    }
+    
+    .left, .right {
+      background: $envelope-color-2;
+      width: $triangle-width;
+      height: $envelope-height;
+    }
+    
+    .top {
+      height: calc(#{$envelope-height} - 10px);
+      background: $envelope-color-1;
+    -webkit-clip-path: polygon(0 0, 50% 100%, 100% 0);
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+    }
+
+    .left {
+        left: 0;
+      -webkit-clip-path: polygon(0 0, 0 100%, 100% 50%);
+        clip-path: polygon(0 0, 0 100%, 100% 50%);
+    }
+
+    .right {
+        right: 0;
+        -webkit-clip-path: polygon(0 50%, 100% 0, 100% 100%);
+        clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    }
+
+    .bottom {
+        top: $triangle-height;  
+        height: $triangle-height;
+        background: $envelope-color-3;
+      -webkit-clip-path: polygon(0 100%, 50% 0%, 100% 100%);   
+        clip-path: polygon(0 100%, 50% 0%, 100% 100%);   
+    }
+  }
+}
+
+
+  
+
+
+
