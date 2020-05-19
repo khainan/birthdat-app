@@ -28,9 +28,20 @@ function useOnClickOutside(ref, handler) {
 function App() {
 
   const [open, setOpen] = useState(false)
+  const [shake, setShake] = useState(false)
   const refEnvelope = useRef()
 
   useOnClickOutside(refEnvelope, () => setOpen(false));
+
+  const openMessage = () => {
+    if(!open){
+      setShake(true)
+    }
+    setTimeout(() => {
+      setShake(false)
+      setOpen(true)
+    }, 1000)
+  }
 
   return (
     <div className="App">
@@ -42,7 +53,7 @@ function App() {
       }
 
       <div className="design">
-        <div ref={refEnvelope} className={`envelope ${open ? 'open' : ''}`} onClick={() => setOpen(true)}>
+        <div ref={refEnvelope} className={`envelope ${shake ? 'shake-slow' : ''} ${open ? 'open' : ''}`} onClick={() => openMessage()}>
           <div className="cover">
             <div className="bottom"> </div>
             <div className="left"></div>
