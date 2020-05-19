@@ -36,11 +36,11 @@ function App() {
   const openMessage = () => {
     if(!open){
       setShake(true)
+      setTimeout(() => {
+        setShake(false)
+        setOpen(true)
+      }, 1000)
     }
-    setTimeout(() => {
-      setShake(false)
-      setOpen(true)
-    }, 1000)
   }
 
   return (
