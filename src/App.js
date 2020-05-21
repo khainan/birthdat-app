@@ -59,9 +59,12 @@ function App() {
           <div className="after"></div>
         </div>
       }
-      <h2 className="h2-message" style={ !open ? {fontSize: 0, marginBottom: 0} : {}}>
-        Happy Birthday Talia!
-      </h2>
+      { !shake && <h2 className="h2-message" style={ !open ? {fontSize: 0, marginBottom: 0} : {marginBottom: 0}}>
+        It's your day!
+      </h2>}
+      { !shake && <h2 className="h2-message" style={ !open ? {fontSize: 0, marginBottom: 0} : {}}>
+        Happy Birthday Talia
+      </h2>}
       <div className="design">
         <div ref={refEnvelope} className={`envelope ${shake ? 'shake-slow' : ''} ${open ? 'open' : ''}`} onClick={() => openMessage()}>
           <div className="cover">
