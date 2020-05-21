@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import logo from './logo.svg';
 import './main.scss';
+import box from './box.png';
 
 function useOnClickOutside(ref, handler) {
   useEffect(
@@ -43,15 +44,24 @@ function App() {
     }
   }
 
+  const text = {
+    color: "#242423",
+    transitionDuration: "0.3s", 
+    marginTop: "-400px",
+    fontSize: "36px"
+  }
+
   return (
-    <div className="App">
+    <div className="message-app" style={ !open ? {background: "#242423", transitionDuration: "0.3s"} : {transitionDuration: "0.3s"}}>
       { open &&
         <div className="pyro">
           <div className="before"></div>
           <div className="after"></div>
         </div>
       }
-
+      <h2 className="h2-message" style={ !open ? {fontSize: 0, marginBottom: 0} : {}}>
+        Happy Birthday Talia!
+      </h2>
       <div className="design">
         <div ref={refEnvelope} className={`envelope ${shake ? 'shake-slow' : ''} ${open ? 'open' : ''}`} onClick={() => openMessage()}>
           <div className="cover">
@@ -61,11 +71,15 @@ function App() {
             <div className="top"></div>
           </div>
           <div className="paper" onClick={() => {console.log("test")}}>
-            <div className="message">Love Yourself...</div>
+            <div className="message">Talia Yunita...</div>
           </div>
         </div>
       </div>
-
+      { !shake && 
+          <p className="p-message" style={ !open ? {color: "#eee4e1"} : {color: "#242423"}}>
+              {!open ? "Tap the Message" : "Tap the Card"}
+            </p>
+      }
     </div>
   );
 }

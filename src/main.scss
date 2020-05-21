@@ -67,10 +67,34 @@ $box-shadow2: ();
 }
 
 body {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.message-app {
+  width: 100%;
+  min-height: 100vh;
   background: #eee4e1;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  p, h2 {
+    font-family: 'Open Sans', sans-serif;
+  }
+  .h2-message {
+    margin: 0;
+    transition: 0.3s;
+    margin-bottom: 130px;
+    font-size: 30px;
+  }
+  .p-message {
+    margin: 0;
+    margin-top: 24px;
+    font-size: 24px;
+  }
 }
 
 .pyro > .before, .pyro > .after {
@@ -156,7 +180,7 @@ $bezier: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 /*----Components ----*/
 .design {
-  @extend %absolute-center;
+  position: relative;
 }
 
 .envelope {
