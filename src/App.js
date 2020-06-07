@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import logo from './logo.svg';
 import './main.scss';
-import box from './box.png';
+import taliaImg from './talia.JPG'
+import cake from './cake2.png'
+import candy from './candy.png'
+import confetti from './confetti.png'
+import confetti2 from './confetti2.png'
+import heart from './heart.png'
+import hat from './hat.png'
 
 function useOnClickOutside(ref, handler) {
   useEffect(
@@ -30,9 +35,13 @@ function App() {
 
   const [open, setOpen] = useState(false)
   const [shake, setShake] = useState(false)
+  const [card, openCard] = useState(false)
   const refEnvelope = useRef()
+  const refCard = useRef()
 
-  useOnClickOutside(refEnvelope, () => setOpen(false));
+  useOnClickOutside(refEnvelope, () => card && setTimeout(() => setOpen(false),1000));
+  useOnClickOutside(refCard, () => openCard(false));
+
 
   const openMessage = () => {
     if(!open){
@@ -44,23 +53,36 @@ function App() {
     }
   }
 
-  const text = {
-    color: "#242423",
-    transitionDuration: "0.3s", 
-    marginTop: "-400px",
-    fontSize: "36px"
-  }
-
   return (
     <div className="message-app" style={ !open ? {background: "#242423", transitionDuration: "0.3s"} : {transitionDuration: "0.3s"}}>
+      <div className={`modal-background ${card ? 'show' : 'hide'}`}></div>
+      <div id="modal-zoom-in" ref={refCard} className={`modal ${card ? 'show' : 'hide'} card-message`}>
+        <div className="wrapper-img">
+          <img className="talia" src={taliaImg}/>
+          <img className="hat" src={hat}/>
+        </div>
+        <h3>It's your day! <img className="cake" src={cake}/> </h3>
+        <p>
+          Selamat ulang tahun ya tal <img style={{width: "24px"}} src={confetti}/> semoga diumur ke 21 ini kamu lebih dewasa lagi dari yang sekarang, 
+          lancar rejekinya, sehat selalu, dan yang terpenting adalah lebih bermanfaat lagi bagi orang lain :). <br /> 
+          tetap selalu menjadi talia yang periang <img style={{width: "12px"}} src={candy}/> ya sayang (meskipun kamu udah mulai beranjak tua sekarang wkwk). <br />
+          I <img style={{width: "12px"}} src={heart}/> You so much tal.. semoga kita berdua bisa selalu merayakan ulang tahun bareng di tahun-tahun berikutnya.
+        </p>
+        <div className="wrapper-note">
+          <h5>From:</h5>
+          <p className="sign">Rachim</p>
+        </div>
+      </div>
+
       { open &&
         <div className="pyro">
           <div className="before"></div>
           <div className="after"></div>
         </div>
       }
+      { !shake && <img className="confetti" src={confetti2} style={!open ? {top: "-200px"} : {top: 0}}/>}
       { !shake && <h2 className="h2-message" style={ !open ? {fontSize: 0, marginBottom: 0} : {marginBottom: 0}}>
-        It's your day!
+        Cie.. Ulang tahun!
       </h2>}
       { !shake && <h2 className="h2-message" style={ !open ? {fontSize: 0, marginBottom: 0} : {}}>
         Happy Birthday Talia
@@ -73,7 +95,7 @@ function App() {
             <div className="right"> </div>
             <div className="top"></div>
           </div>
-          <div className="paper" onClick={() => {console.log("test")}}>
+          <div className="paper" onClick={() => openCard(!card)}>
             <div className="message">Talia Yunita...</div>
           </div>
         </div>
