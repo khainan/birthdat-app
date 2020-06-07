@@ -80,11 +80,11 @@ function App() {
           <div className="after"></div>
         </div>
       }
-      { !shake && <img className="confetti" src={confetti2} style={!open ? {top: "-200px"} : {top: 0}}/>}
-      { !shake && <h2 className="h2-message" style={ !open ? {fontSize: 0, marginBottom: 0} : {marginBottom: 0}}>
+      <img className={`confetti ${!shake ? '' : 'hide'}`} src={confetti2} style={!open ? {top: "-200px"} : {top: 0}}/>
+      { !shake && <h2 className={`h2-message ${!shake ? '' : 'hide'}`} style={ !open ? {fontSize: 0, marginBottom: 0} : {marginBottom: 0, fontSize: "32px"}}>
         Cie.. Ulang tahun!
       </h2>}
-      { !shake && <h2 className="h2-message" style={ !open ? {fontSize: 0, marginBottom: 0} : {}}>
+      { !shake && <h2 className={`h2-message ${!shake ? '' : 'hide'}`} style={ !open ? {fontSize: 0, marginBottom: 0} : {fontSize: "32px", marginBottom: "130px"}}>
         Happy Birthday Talia
       </h2>}
       <div className="design">

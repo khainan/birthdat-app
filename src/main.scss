@@ -84,6 +84,9 @@ body {
   p, h2 {
     font-family: 'Open Sans', sans-serif;
   }
+  .hide {
+    opacity: 0;
+  }
   .h2-message {
     margin: 0;
     transition: 0.3s;
