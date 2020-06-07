@@ -81,12 +81,12 @@ function App() {
         </div>
       }
       <img className={`confetti ${!shake ? '' : 'hide'}`} src={confetti2} style={!open ? {top: "-200px"} : {top: 0}}/>
-      { !shake && <h2 className={`h2-message ${!shake ? '' : 'hide'}`} style={ !open ? {fontSize: 0, marginBottom: 0} : {marginBottom: 0, fontSize: "32px"}}>
+      <h2 className={`h2-message ${!shake ? '' : 'hide'}`} style={ !open ? {fontSize: 0, marginBottom: 0} : {marginBottom: 0, fontSize: "32px"}}>
         Cie.. Ulang tahun!
-      </h2>}
-      { !shake && <h2 className={`h2-message ${!shake ? '' : 'hide'}`} style={ !open ? {fontSize: 0, marginBottom: 0} : {fontSize: "32px", marginBottom: "130px"}}>
+      </h2>
+      <h2 className={`h2-message ${!shake ? '' : 'hide'}`} style={ !open ? {fontSize: 0, marginBottom: "0px"} : {fontSize: "32px", marginBottom: "130px"}}>
         Happy Birthday Talia
-      </h2>}
+      </h2>
       <div className="design">
         <div ref={refEnvelope} className={`envelope ${shake ? 'shake-slow' : ''} ${open ? 'open' : ''}`} onClick={() => openMessage()}>
           <div className="cover">
